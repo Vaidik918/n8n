@@ -1,0 +1,118 @@
+{
+  "name": "My workflow",
+  "nodes": [
+    {
+      "parameters": {
+        "options": {}
+      },
+      "type": "n8n-nodes-base.emailReadImap",
+      "typeVersion": 2.1,
+      "position": [
+        0,
+        0
+      ],
+      "id": "6816cee8-be32-4147-8e2f-b0fc4395c7d3",
+      "name": "Email Trigger (IMAP)",
+      "credentials": {
+        "imap": {
+          "id": "zfwuNA636GEzh9c4",
+          "name": "IMAP account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "conditions": {
+          "options": {
+            "caseSensitive": false,
+            "leftValue": "",
+            "typeValidation": "strict",
+            "version": 2
+          },
+          "conditions": [
+            {
+              "id": "17cd3a71-1c47-46e8-97e0-80b170424243",
+              "leftValue": "={{ $json.subject }}",
+              "rightValue": "Vaidik",
+              "operator": {
+                "type": "string",
+                "operation": "contains"
+              }
+            }
+          ],
+          "combinator": "and"
+        },
+        "options": {
+          "ignoreCase": true
+        }
+      },
+      "type": "n8n-nodes-base.if",
+      "typeVersion": 2.2,
+      "position": [
+        208,
+        0
+      ],
+      "id": "c9e2abb3-a137-41a3-a35f-3b2553a13128",
+      "name": "If"
+    },
+    {
+      "parameters": {
+        "from": "+14155238886",
+        "to": "+918770330781",
+        "toWhatsapp": true,
+        "message": "=You have an email to look for!\n\nFrom: {{ $('Email Trigger (IMAP)').item.json.from }}\nSubject: {{ $('Email Trigger (IMAP)').item.json.subject }}\nDate & Time: {{ $json.date }}",
+        "options": {}
+      },
+      "type": "n8n-nodes-base.twilio",
+      "typeVersion": 1,
+      "position": [
+        416,
+        -96
+      ],
+      "id": "02117d8d-6626-43ce-a8f8-110417f6c9e0",
+      "name": "Send an SMS/MMS/WhatsApp message",
+      "credentials": {
+        "twilioApi": {
+          "id": "WD6tABzn9aQDVT9s",
+          "name": "Twilio account"
+        }
+      }
+    }
+  ],
+  "pinData": {},
+  "connections": {
+    "Email Trigger (IMAP)": {
+      "main": [
+        [
+          {
+            "node": "If",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "If": {
+      "main": [
+        [
+          {
+            "node": "Send an SMS/MMS/WhatsApp message",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    }
+  },
+  "active": true,
+  "settings": {
+    "executionOrder": "v1"
+  },
+  "versionId": "921519cb-b0ce-4666-92a9-8649df2e1a96",
+  "meta": {
+    "templateCredsSetupCompleted": true,
+    "instanceId": "1e3d78e77134f1c2c70fb033c7096f3c2f8219a299020aadf1bd35e49449ee17"
+  },
+  "id": "VweHvMbUzlM8M9SM",
+  "tags": []
+}
