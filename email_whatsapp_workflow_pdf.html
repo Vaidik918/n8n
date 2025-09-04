@@ -1,0 +1,607 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Email to WhatsApp Notification System - n8n Workflow</title>
+    <style>
+        @page {
+            size: A4;
+            margin: 1in;
+        }
+        
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            line-height: 1.6;
+            color: #333;
+            max-width: 210mm;
+            margin: 0 auto;
+            background: white;
+        }
+        
+        .header {
+            text-align: center;
+            margin-bottom: 30px;
+            padding: 20px 0;
+            border-bottom: 3px solid #0066cc;
+        }
+        
+        .header h1 {
+            color: #0066cc;
+            font-size: 28px;
+            margin: 0;
+            font-weight: bold;
+        }
+        
+        .header h2 {
+            color: #666;
+            font-size: 18px;
+            margin: 5px 0 0 0;
+            font-weight: normal;
+        }
+        
+        h2 {
+            color: #0066cc;
+            font-size: 20px;
+            margin-top: 25px;
+            margin-bottom: 15px;
+            padding-bottom: 5px;
+            border-bottom: 2px solid #e0e0e0;
+        }
+        
+        h3 {
+            color: #4a4a4a;
+            font-size: 16px;
+            margin-top: 20px;
+            margin-bottom: 10px;
+            font-weight: 600;
+        }
+        
+        .overview-box {
+            background: #f8f9fa;
+            padding: 20px;
+            border-left: 4px solid #0066cc;
+            margin: 20px 0;
+            border-radius: 0 5px 5px 0;
+        }
+        
+        .workflow-diagram {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            padding: 20px;
+            border-radius: 10px;
+            margin: 20px 0;
+            text-align: center;
+        }
+        
+        .workflow-step {
+            display: inline-block;
+            background: rgba(255,255,255,0.2);
+            padding: 10px 15px;
+            margin: 5px;
+            border-radius: 20px;
+            backdrop-filter: blur(10px);
+        }
+        
+        .arrow {
+            font-size: 20px;
+            margin: 0 10px;
+            color: #ffeb3b;
+        }
+        
+        .features-grid {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 15px;
+            margin: 20px 0;
+        }
+        
+        .feature-card {
+            background: #f0f8ff;
+            padding: 15px;
+            border-radius: 8px;
+            border-left: 4px solid #007acc;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+        }
+        
+        .feature-card h4 {
+            margin: 0 0 8px 0;
+            color: #0066cc;
+            font-size: 14px;
+            font-weight: 600;
+        }
+        
+        .feature-card p {
+            margin: 0;
+            font-size: 13px;
+            color: #555;
+        }
+        
+        .node-details {
+            background: #fff5f5;
+            padding: 20px;
+            border-radius: 8px;
+            border: 1px solid #fed7d7;
+            margin: 15px 0;
+        }
+        
+        .node-title {
+            background: #e53e3e;
+            color: white;
+            padding: 8px 15px;
+            border-radius: 20px;
+            display: inline-block;
+            font-size: 14px;
+            font-weight: 600;
+            margin-bottom: 10px;
+        }
+        
+        .config-table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 10px 0;
+            font-size: 13px;
+        }
+        
+        .config-table th, .config-table td {
+            border: 1px solid #ddd;
+            padding: 8px;
+            text-align: left;
+        }
+        
+        .config-table th {
+            background-color: #f2f2f2;
+            font-weight: 600;
+        }
+        
+        .tech-stack {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 10px;
+            margin: 15px 0;
+        }
+        
+        .tech-item {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            padding: 8px 12px;
+            border-radius: 20px;
+            font-size: 12px;
+            font-weight: 500;
+        }
+        
+        .use-case-box {
+            background: #f0fff4;
+            padding: 20px;
+            border-radius: 10px;
+            border: 1px solid #9ae6b4;
+            margin: 20px 0;
+        }
+        
+        .example-message {
+            background: #e6fffa;
+            padding: 15px;
+            border-radius: 8px;
+            border-left: 4px solid #319795;
+            margin: 15px 0;
+            font-family: monospace;
+            font-size: 13px;
+        }
+        
+        .code-block {
+            background: #1a202c;
+            color: #e2e8f0;
+            padding: 15px;
+            border-radius: 8px;
+            margin: 15px 0;
+            font-family: 'Courier New', monospace;
+            font-size: 12px;
+            overflow-x: auto;
+        }
+        
+        .requirements-list {
+            background: #fff5f5;
+            padding: 20px;
+            border-radius: 8px;
+            border: 1px solid #fed7d7;
+        }
+        
+        .requirements-list ul {
+            margin: 0;
+            padding-left: 20px;
+        }
+        
+        .requirements-list li {
+            margin-bottom: 8px;
+            color: #2d3748;
+        }
+        
+        .footer {
+            margin-top: 40px;
+            padding-top: 20px;
+            border-top: 2px solid #e0e0e0;
+            text-align: center;
+            color: #666;
+            font-size: 12px;
+        }
+        
+        @media print {
+            body {
+                -webkit-print-color-adjust: exact;
+                print-color-adjust: exact;
+            }
+            
+            .node-details {
+                break-inside: avoid;
+            }
+            
+            .use-case-box {
+                break-inside: avoid;
+            }
+        }
+        
+        .highlight-box {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            padding: 15px;
+            border-radius: 8px;
+            margin: 20px 0;
+        }
+        
+        .highlight-box h3 {
+            color: white;
+            margin-top: 0;
+        }
+        
+        .step-number {
+            display: inline-block;
+            background: #0066cc;
+            color: white;
+            width: 25px;
+            height: 25px;
+            border-radius: 50%;
+            text-align: center;
+            line-height: 25px;
+            font-weight: bold;
+            margin-right: 10px;
+            font-size: 14px;
+        }
+    </style>
+</head>
+<body>
+    <div class="header">
+        <h1>📧➡️📱 Email to WhatsApp Notification System</h1>
+        <h2>n8n Automated Workflow</h2>
+    </div>
+
+    <div class="overview-box">
+        <h2 style="margin-top: 0; border: none;">📋 Overview</h2>
+        <p>This n8n workflow automatically monitors your email inbox via IMAP and sends instant WhatsApp notifications when specific emails arrive. Perfect for getting immediate alerts about important emails containing specific keywords (like your name "Vaidik") without constantly checking your inbox.</p>
+    </div>
+
+    <div class="workflow-diagram">
+        <h3 style="color: white; margin-top: 0;">🔄 Workflow Process</h3>
+        <div style="margin: 20px 0;">
+            <span class="workflow-step">📧 Email Trigger</span>
+            <span class="arrow">→</span>
+            <span class="workflow-step">🔍 Filter Check</span>
+            <span class="arrow">→</span>
+            <span class="workflow-step">📱 WhatsApp Alert</span>
+        </div>
+    </div>
+
+    <h2>🚀 Key Features</h2>
+    <div class="features-grid">
+        <div class="feature-card">
+            <h4>📧 Real-time Email Monitoring</h4>
+            <p>Continuously monitors your email inbox using IMAP protocol</p>
+        </div>
+        <div class="feature-card">
+            <h4>🔍 Smart Filtering</h4>
+            <p>Only triggers for emails containing "Vaidik" in the subject line</p>
+        </div>
+        <div class="feature-card">
+            <h4>📱 Instant WhatsApp Alerts</h4>
+            <p>Sends formatted notifications directly to your WhatsApp</p>
+        </div>
+        <div class="feature-card">
+            <h4>📝 Detailed Information</h4>
+            <p>Includes sender, subject, and timestamp in notifications</p>
+        </div>
+    </div>
+
+    <h2>🔧 Technical Stack</h2>
+    <div class="tech-stack">
+        <div class="tech-item">n8n Workflow</div>
+        <div class="tech-item">IMAP Email</div>
+        <div class="tech-item">Twilio WhatsApp API</div>
+        <div class="tech-item">Conditional Logic</div>
+    </div>
+
+    <h2>⚙️ Node Configuration Details</h2>
+    
+    <div class="node-details">
+        <div class="node-title">📧 Node 1: Email Trigger (IMAP)</div>
+        <table class="config-table">
+            <tr>
+                <th>Parameter</th>
+                <th>Value</th>
+                <th>Description</th>
+            </tr>
+            <tr>
+                <td>Node Type</td>
+                <td>n8n-nodes-base.emailReadImap</td>
+                <td>IMAP email reader node</td>
+            </tr>
+            <tr>
+                <td>Version</td>
+                <td>2.1</td>
+                <td>Latest stable version</td>
+            </tr>
+            <tr>
+                <td>Credentials</td>
+                <td>IMAP account</td>
+                <td>Your email account credentials</td>
+            </tr>
+            <tr>
+                <td>Trigger Type</td>
+                <td>Real-time monitoring</td>
+                <td>Activates when new emails arrive</td>
+            </tr>
+        </table>
+    </div>
+
+    <div class="node-details">
+        <div class="node-title">🔍 Node 2: If Condition Filter</div>
+        <table class="config-table">
+            <tr>
+                <th>Parameter</th>
+                <th>Value</th>
+                <th>Description</th>
+            </tr>
+            <tr>
+                <td>Node Type</td>
+                <td>n8n-nodes-base.if</td>
+                <td>Conditional logic node</td>
+            </tr>
+            <tr>
+                <td>Version</td>
+                <td>2.2</td>
+                <td>Enhanced conditional logic</td>
+            </tr>
+            <tr>
+                <td>Condition</td>
+                <td>Subject contains "Vaidik"</td>
+                <td>Case-insensitive string matching</td>
+            </tr>
+            <tr>
+                <td>Left Value</td>
+                <td>{{ $json.subject }}</td>
+                <td>Email subject line</td>
+            </tr>
+            <tr>
+                <td>Operator</td>
+                <td>Contains</td>
+                <td>String contains operation</td>
+            </tr>
+            <tr>
+                <td>Right Value</td>
+                <td>"Vaidik"</td>
+                <td>Target keyword to match</td>
+            </tr>
+        </table>
+    </div>
+
+    <div class="node-details">
+        <div class="node-title">📱 Node 3: WhatsApp Message Sender</div>
+        <table class="config-table">
+            <tr>
+                <th>Parameter</th>
+                <th>Value</th>
+                <th>Description</th>
+            </tr>
+            <tr>
+                <td>Node Type</td>
+                <td>n8n-nodes-base.twilio</td>
+                <td>Twilio communication node</td>
+            </tr>
+            <tr>
+                <td>From Number</td>
+                <td>+14155238886</td>
+                <td>Twilio WhatsApp sandbox number</td>
+            </tr>
+            <tr>
+                <td>To Number</td>
+                <td>+918770330781</td>
+                <td>Your WhatsApp number</td>
+            </tr>
+            <tr>
+                <td>WhatsApp Mode</td>
+                <td>Enabled</td>
+                <td>Sends via WhatsApp instead of SMS</td>
+            </tr>
+            <tr>
+                <td>Credentials</td>
+                <td>Twilio API</td>
+                <td>Your Twilio account credentials</td>
+            </tr>
+        </table>
+    </div>
+
+    <h2>📱 WhatsApp Message Format</h2>
+    <div class="example-message">
+<strong>You have an email to look for!</strong>
+
+<strong>From:</strong> sender@example.com
+<strong>Subject:</strong> Important message from Vaidik
+<strong>Date & Time:</strong> 2024-01-15 10:30:25
+    </div>
+
+    <div class="highlight-box">
+        <h3>💡 Message Template Breakdown</h3>
+        <div class="code-block">
+You have an email to look for!
+
+From: {{ $('Email Trigger (IMAP)').item.json.from }}
+Subject: {{ $('Email Trigger (IMAP)').item.json.subject }}
+Date & Time: {{ $json.date }}
+        </div>
+    </div>
+
+    <h2>📋 Setup Requirements</h2>
+    <div class="requirements-list">
+        <ul>
+            <li><strong>n8n Instance:</strong> Cloud or self-hosted n8n installation</li>
+            <li><strong>Email Account:</strong> IMAP-enabled email account (Gmail, Outlook, etc.)</li>
+            <li><strong>Twilio Account:</strong> Active Twilio account with WhatsApp API access</li>
+            <li><strong>WhatsApp Setup:</strong> WhatsApp number connected to Twilio sandbox</li>
+            <li><strong>Network Access:</strong> Stable internet connection for real-time monitoring</li>
+        </ul>
+    </div>
+
+    <h2>🔧 Configuration Steps</h2>
+    
+    <div class="use-case-box">
+        <h3><span class="step-number">1</span>Email IMAP Setup</h3>
+        <ul>
+            <li>Configure IMAP credentials in n8n</li>
+            <li>Set up email account with app-specific password if needed</li>
+            <li>Test connection to ensure emails are being received</li>
+        </ul>
+    </div>
+
+    <div class="use-case-box">
+        <h3><span class="step-number">2</span>Condition Filter Setup</h3>
+        <ul>
+            <li>Set condition to check email subject</li>
+            <li>Configure case-insensitive matching for "Vaidik"</li>
+            <li>Test with sample emails to verify filtering works</li>
+        </ul>
+    </div>
+
+    <div class="use-case-box">
+        <h3><span class="step-number">3</span>Twilio WhatsApp Configuration</h3>
+        <ul>
+            <li>Set up Twilio account and get API credentials</li>
+            <li>Enable WhatsApp sandbox and verify your number</li>
+            <li>Configure message template with dynamic content</li>
+        </ul>
+    </div>
+
+    <div class="use-case-box">
+        <h3><span class="step-number">4</span>Workflow Activation</h3>
+        <ul>
+            <li>Test the complete workflow end-to-end</li>
+            <li>Activate the workflow in n8n</li>
+            <li>Monitor for successful email-to-WhatsApp notifications</li>
+        </ul>
+    </div>
+
+    <h2>💼 Use Cases</h2>
+    
+    <div class="use-case-box">
+        <h3>🎯 Personal Email Alerts</h3>
+        <p>Get instant notifications when emails mention your name, ensuring you never miss important communications about yourself.</p>
+    </div>
+
+    <div class="use-case-box">
+        <h3>📊 Business Monitoring</h3>
+        <p>Monitor client emails, project updates, or business communications that require immediate attention.</p>
+    </div>
+
+    <div class="use-case-box">
+        <h3>🚨 Emergency Notifications</h3>
+        <p>Set up urgent email alerts for critical systems, server notifications, or emergency communications.</p>
+    </div>
+
+    <div class="use-case-box">
+        <h3>📝 Content Filtering</h3>
+        <p>Filter specific types of emails based on keywords, sender, or subject patterns for organized notifications.</p>
+    </div>
+
+    <h2>🔄 Workflow Execution Flow</h2>
+    
+    <div class="node-details">
+        <h3>1. Email Monitoring Phase</h3>
+        <p>The IMAP node continuously monitors your email inbox for new incoming messages in real-time.</p>
+    </div>
+
+    <div class="node-details">
+        <h3>2. Conditional Processing</h3>
+        <p>When a new email arrives, the IF node checks if the subject line contains "Vaidik" (case-insensitive).</p>
+    </div>
+
+    <div class="node-details">
+        <h3>3. WhatsApp Notification</h3>
+        <p>If the condition is met, the Twilio node sends a formatted WhatsApp message with email details.</p>
+    </div>
+
+    <div class="node-details">
+        <h3>4. Workflow Completion</h3>
+        <p>The workflow completes successfully, and the system continues monitoring for the next email.</p>
+    </div>
+
+    <h2>⚡ Performance & Scalability</h2>
+    
+    <div class="features-grid">
+        <div class="feature-card">
+            <h4>⏱️ Real-time Processing</h4>
+            <p>Instant notifications within seconds of email arrival</p>
+        </div>
+        <div class="feature-card">
+            <h4>🔄 Continuous Monitoring</h4>
+            <p>24/7 email monitoring without manual intervention</p>
+        </div>
+        <div class="feature-card">
+            <h4>📈 Scalable Design</h4>
+            <p>Can handle multiple email accounts and conditions</p>
+        </div>
+        <div class="feature-card">
+            <h4>🛡️ Reliable Delivery</h4>
+            <p>Robust error handling and retry mechanisms</p>
+        </div>
+    </div>
+
+    <h2>🔧 Customization Options</h2>
+    
+    <div class="example-message">
+        <strong>Filter Customizations:</strong><br>
+        • Change keyword from "Vaidik" to any other term<br>
+        • Add multiple conditions (sender, subject, body)<br>
+        • Set time-based filtering (business hours only)<br>
+        • Configure different actions for different email types
+    </div>
+
+    <div class="example-message">
+        <strong>Message Customizations:</strong><br>
+        • Modify WhatsApp message template<br>
+        • Add email body preview<br>
+        • Include custom emojis and formatting<br>
+        • Send to multiple WhatsApp numbers
+    </div>
+
+    <div class="footer">
+        <h2>📄 Workflow Information</h2>
+        <p><strong>Workflow ID:</strong> VweHvMbUzlM8M9SM</p>
+        <p><strong>Version:</strong> v1 Execution Order</p>
+        <p><strong>Status:</strong> Active and Ready for Production</p>
+        <hr style="margin: 20px 0; border: none; border-top: 1px solid #ddd;">
+        <p style="margin-top: 20px;">
+            <strong>Email to WhatsApp Notification System</strong><br>
+            Generated on: <script>document.write(new Date().toLocaleDateString())</script><br>
+            Automated Email Alert Solution
+        </p>
+    </div>
+
+    <script>
+        // Print functionality
+        window.addEventListener('load', function() {
+            setTimeout(function() {
+                if (confirm('Would you like to save this as PDF? Click OK to print/save.')) {
+                    window.print();
+                }
+            }, 1000);
+        });
+    </script>
+</body>
+</html>
