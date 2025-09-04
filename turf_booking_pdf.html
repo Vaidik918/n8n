@@ -1,0 +1,396 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Turf Booking System - n8n WhatsApp Automation</title>
+    <style>
+        @page {
+            size: A4;
+            margin: 1in;
+        }
+        
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            line-height: 1.6;
+            color: #333;
+            max-width: 210mm;
+            margin: 0 auto;
+            background: white;
+        }
+        
+        .header {
+            text-align: center;
+            margin-bottom: 30px;
+            padding: 20px 0;
+            border-bottom: 3px solid #2c5530;
+        }
+        
+        .header h1 {
+            color: #2c5530;
+            font-size: 28px;
+            margin: 0;
+            font-weight: bold;
+        }
+        
+        .header h2 {
+            color: #666;
+            font-size: 18px;
+            margin: 5px 0 0 0;
+            font-weight: normal;
+        }
+        
+        h2 {
+            color: #2c5530;
+            font-size: 20px;
+            margin-top: 25px;
+            margin-bottom: 15px;
+            padding-bottom: 5px;
+            border-bottom: 2px solid #e0e0e0;
+        }
+        
+        h3 {
+            color: #4a4a4a;
+            font-size: 16px;
+            margin-top: 20px;
+            margin-bottom: 10px;
+            font-weight: 600;
+        }
+        
+        .overview-box {
+            background: #f8f9fa;
+            padding: 20px;
+            border-left: 4px solid #2c5530;
+            margin: 20px 0;
+            border-radius: 0 5px 5px 0;
+        }
+        
+        .features-grid {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 10px;
+            margin: 15px 0;
+        }
+        
+        .feature-item {
+            background: #f0f8ff;
+            padding: 10px 15px;
+            border-radius: 5px;
+            border-left: 3px solid #007acc;
+            font-size: 14px;
+        }
+        
+        .requirements-list {
+            background: #fff5f5;
+            padding: 20px;
+            border-radius: 8px;
+            border: 1px solid #fed7d7;
+        }
+        
+        .requirements-list ul {
+            margin: 0;
+            padding-left: 20px;
+        }
+        
+        .requirements-list li {
+            margin-bottom: 8px;
+            color: #2d3748;
+        }
+        
+        .workflow-step {
+            background: #f7fafc;
+            margin: 15px 0;
+            padding: 15px;
+            border-radius: 8px;
+            border-left: 4px solid #4299e1;
+        }
+        
+        .workflow-step h4 {
+            margin: 0 0 10px 0;
+            color: #2b6cb0;
+            font-size: 16px;
+        }
+        
+        .example-journey {
+            background: #f0fff4;
+            padding: 20px;
+            border-radius: 10px;
+            border: 1px solid #9ae6b4;
+            margin: 20px 0;
+        }
+        
+        .user-message {
+            background: #e6fffa;
+            padding: 10px 15px;
+            margin: 8px 0;
+            border-radius: 15px 15px 5px 15px;
+            border-left: 3px solid #319795;
+            font-style: italic;
+        }
+        
+        .system-response {
+            background: #fff5f5;
+            padding: 10px 15px;
+            margin: 8px 0;
+            border-radius: 15px 15px 15px 5px;
+            border-left: 3px solid #e53e3e;
+        }
+        
+        .step-number {
+            display: inline-block;
+            background: #2c5530;
+            color: white;
+            width: 25px;
+            height: 25px;
+            border-radius: 50%;
+            text-align: center;
+            line-height: 25px;
+            font-weight: bold;
+            margin-right: 10px;
+            font-size: 14px;
+        }
+        
+        .tech-stack {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 10px;
+            margin: 15px 0;
+        }
+        
+        .tech-item {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            padding: 8px 12px;
+            border-radius: 20px;
+            font-size: 12px;
+            font-weight: 500;
+        }
+        
+        .footer {
+            margin-top: 40px;
+            padding-top: 20px;
+            border-top: 2px solid #e0e0e0;
+            text-align: center;
+            color: #666;
+            font-size: 12px;
+        }
+        
+        @media print {
+            body {
+                -webkit-print-color-adjust: exact;
+                print-color-adjust: exact;
+            }
+            
+            .workflow-step {
+                break-inside: avoid;
+            }
+            
+            .example-journey {
+                break-inside: avoid;
+            }
+        }
+        
+        code {
+            background: #f1f5f9;
+            padding: 2px 6px;
+            border-radius: 3px;
+            font-family: 'Courier New', monospace;
+            font-size: 13px;
+            color: #1a202c;
+        }
+        
+        .highlight-box {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            padding: 15px;
+            border-radius: 8px;
+            margin: 20px 0;
+        }
+        
+        .highlight-box h3 {
+            color: white;
+            margin-top: 0;
+        }
+    </style>
+</head>
+<body>
+    <div class="header">
+        <h1>🏟️ Turf Booking System</h1>
+        <h2>n8n WhatsApp Automation</h2>
+    </div>
+
+    <div class="overview-box">
+        <h2 style="margin-top: 0; border: none;">📋 Overview</h2>
+        <p>This project fully automates turf slot booking using n8n, WhatsApp (Twilio), Google Gemini AI, Google Calendar, Razorpay, and Google Sheets. Users can chat to book, pay, and confirm their turf slot on WhatsApp. After each successful payment, the owner receives an email notification and the slot automatically appears as an event in the owner's Google Calendar.</p>
+    </div>
+
+    <h2>🚀 Features</h2>
+    <div class="features-grid">
+        <div class="feature-item">📱 WhatsApp messaging and booking via Twilio</div>
+        <div class="feature-item">🤖 AI-powered booking request parsing (Google Gemini)</div>
+        <div class="feature-item">📅 Automatic slot availability check (Google Calendar)</div>
+        <div class="feature-item">❓ Prompt users for missing details via WhatsApp</div>
+        <div class="feature-item">💳 Advance payment integration using Razorpay</div>
+        <div class="feature-item">📧 Automatic email notification to owner</div>
+        <div class="feature-item">📆 Owner's Google Calendar auto-updates</div>
+        <div class="feature-item">📊 Booking status tracked using Google Sheets</div>
+    </div>
+
+    <h2>🔧 Technical Stack</h2>
+    <div class="tech-stack">
+        <div class="tech-item">n8n</div>
+        <div class="tech-item">Twilio WhatsApp API</div>
+        <div class="tech-item">Google Gemini AI</div>
+        <div class="tech-item">Google Calendar API</div>
+        <div class="tech-item">Razorpay</div>
+        <div class="tech-item">Google Sheets API</div>
+        <div class="tech-item">Gmail/SMTP</div>
+    </div>
+
+    <h2>⚡ Workflow Summary</h2>
+    
+    <div class="workflow-step">
+        <h4><span class="step-number">1</span>User Request</h4>
+        <p>User requests a turf slot via WhatsApp (e.g., "Can I book today 5-6 PM?").</p>
+    </div>
+
+    <div class="workflow-step">
+        <h4><span class="step-number">2</span>AI Processing</h4>
+        <p>AI extracts booking details (date, start, end time). If any detail is missing, the user receives a WhatsApp prompt asking for it.</p>
+    </div>
+
+    <div class="workflow-step">
+        <h4><span class="step-number">3</span>Availability Check</h4>
+        <p>System checks slot availability on Google Calendar.</p>
+    </div>
+
+    <div class="workflow-step">
+        <h4><span class="step-number">4</span>Payment & Confirmation</h4>
+        <p><strong>If available:</strong></p>
+        <ul>
+            <li>User receives a Razorpay payment link on WhatsApp</li>
+            <li>After payment: Booking is confirmed automatically</li>
+            <li>Owner receives an email notification</li>
+            <li>Event is created in owner's Google Calendar</li>
+            <li>Entry is saved to Google Sheets for tracking</li>
+        </ul>
+        <p><strong>If not available:</strong></p>
+        <ul>
+            <li>System suggests alternative available slots via WhatsApp</li>
+        </ul>
+    </div>
+
+    <h2>📋 Requirements</h2>
+    <div class="requirements-list">
+        <ul>
+            <li>n8n (cloud or self-hosted)</li>
+            <li>Twilio WhatsApp API credentials</li>
+            <li>Google Gemini AI API</li>
+            <li>Google Calendar API access</li>
+            <li>Razorpay API credentials</li>
+            <li>Google Sheets API access</li>
+            <li>Owner's email setup (Gmail or SMTP) for notifications</li>
+        </ul>
+    </div>
+
+    <div class="highlight-box">
+        <h3>💡 Example User Journey (Detailed)</h3>
+    </div>
+
+    <div class="example-journey">
+        <h3>1. Initial Booking Request</h3>
+        <div class="user-message"><strong>User:</strong> "Book today 5-6 PM"</div>
+        <div class="system-response">
+            <strong>System:</strong>
+            <ul>
+                <li>Parses request with AI (Google Gemini) to extract intent, date, start time, and end time</li>
+                <li>If end time missing, sends a reply: "Please provide end time as well. Example: 'Book today 5 to 6 PM'."</li>
+                <li>Waits for user reply to complete booking time info</li>
+            </ul>
+        </div>
+
+        <h3>2. Completed Booking Request</h3>
+        <div class="user-message"><strong>User:</strong> "Book today 5 to 6 PM"</div>
+        <div class="system-response">
+            <strong>System:</strong>
+            <ul>
+                <li>AI extracts complete info: intent=new_booking, date=today, start=5 PM, end=6 PM</li>
+                <li>Checks slot availability in Google Calendar</li>
+            </ul>
+        </div>
+
+        <h3>3. Slot Availability Check</h3>
+        <div class="system-response">
+            <strong>If slot is available:</strong>
+            <ul>
+                <li>System generates a unique Razorpay payment link for ₹500 advance payment</li>
+                <li>Sends the payment link via WhatsApp: "Slot is available! Please confirm your booking by completing payment here: [payment_link]. This link is valid for 10 minutes."</li>
+                <li>Waits for payment confirmation asynchronously using Razorpay webhook</li>
+            </ul>
+        </div>
+        <div class="system-response">
+            <strong>If slot is booked:</strong>
+            <ul>
+                <li>System sends: "Sorry, the requested slot 5-6 PM is already booked. Here are some other available slots: 4-5 PM, 6-7 PM, 7-8 PM. Please reply with your preferred time."</li>
+                <li>Waits for user to select alternate slot and repeats availability check</li>
+            </ul>
+        </div>
+
+        <h3>4. Payment Confirmation Step</h3>
+        <div class="system-response">
+            <ul>
+                <li>Razorpay sends a payment success webhook to n8n</li>
+                <li>System looks up pending booking by payment link ID in Google Sheets</li>
+            </ul>
+        </div>
+
+        <h3>5. Final Booking Confirmation</h3>
+        <div class="system-response">
+            <strong>After payment received:</strong>
+            <ul>
+                <li>System creates the event in the owner's Google Calendar with title <code>Booking: [user's phone number]</code></li>
+                <li>Sends WhatsApp confirmation to user: "Thank you for your payment! Your booking from 5 to 6 PM on [date] is confirmed. Enjoy your game! ⚽"</li>
+                <li>Sends email notification to the turf owner: "New Booking Confirmed! Slot: 5-6 PM on [date], Customer: [user's phone number]"</li>
+            </ul>
+        </div>
+
+        <h3>6. Follow-up & Rebooking</h3>
+        <div class="system-response">
+            <strong>If user does not complete payment within 10 minutes:</strong>
+            <ul>
+                <li>System sends reminder message via WhatsApp or cancels the booking</li>
+                <li>Frees up the slot for others</li>
+            </ul>
+        </div>
+        <div class="system-response">
+            <strong>If user replies with a new time or cancels via WhatsApp:</strong>
+            <ul>
+                <li>System updates or cancels the booking accordingly</li>
+                <li>Notifies both user and owner about changes</li>
+            </ul>
+        </div>
+    </div>
+
+    <div class="footer">
+        <h2>📄 License</h2>
+        <p>Open-source, for demo and educational use only.</p>
+        <hr style="margin: 20px 0; border: none; border-top: 1px solid #ddd;">
+        <p style="margin-top: 20px;">
+            <strong>Turf Booking System Documentation</strong><br>
+            Generated on: <script>document.write(new Date().toLocaleDateString())</script><br>
+            Automated WhatsApp Booking Solution
+        </p>
+    </div>
+
+    <script>
+        // Print functionality
+        window.addEventListener('load', function() {
+            setTimeout(function() {
+                if (confirm('Would you like to save this as PDF? Click OK to print/save.')) {
+                    window.print();
+                }
+            }, 1000);
+        });
+    </script>
+</body>
+</html>
